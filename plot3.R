@@ -1,0 +1,16 @@
+## Exploratory Data Analysis Project 1
+## Frequencies of 3 types of Energy sub-metering over time (1/2/2007 to 2/2/2007)
+
+setwd("D:/Data Science Certificate/Course 4_Exploratory Data Analysis/Project")
+raw <- read.table("household_power_consumption.txt", header=TRUE, sep=";", na.strings="?", stringsAsFactors=FALSE)
+poweruse <- subset(raw, Date=="1/2/2007"|Date=="2/2/2007")
+dtime <- paste(poweruse$Date, poweruse$Time)
+dtime <- strptime(dtime, "%d/%m/%Y %H:%M:%S")
+png(file="plot3.png",  width = 480, height = 480, units = "px", type="windows")
+plot(dtime, poweruse$Sub_metering_1, type="n", xlab="", ylab="Energy sub metering")
+lines(dtime, poweruse$Sub_metering_1, col="black")
+lines(dtime, poweruse$Sub_metering_2, col="red")
+lines(dtime, poweruse$Sub_metering_3, col="blue")
+lgn <- names(poweruse)
+legend("topright", legend=lgn[7:9], col=c("black", "red", "blue"), lty=c(1, 1, 1))
+dev.off()
